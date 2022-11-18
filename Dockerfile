@@ -5,7 +5,8 @@ COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr
 
 ENV TIMEZONE=${timezone:-"Asia/Shanghai"} \
     APP_ENV=production \
-    LANG=C.UTF-8
+    LANG=C.UTF-8 \
+    COMPOSER_ALLOW_SUPERUSER=1
 
 RUN apk add -U tzdata \
 && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone \
@@ -14,4 +15,4 @@ RUN apk add -U tzdata \
 pdo_mysql mysqli bcmath sockets zip bz2 mcrypt sodium amqp redis swoole @composer \
 && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
 && rm -rf /var/cache/apk/* /tmp/* /usr/share/man /var/lib/apt/lists/* \
-&& apt-get clean && chmod +x /opt/run.sh
+&& chmod +x /opt/run.sh
