@@ -1,12 +1,12 @@
 name: Docker Image Octane
 
 on:
-  push:
-    branches: [ "v2" ]
-
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '30 2,6 * * *'
 jobs:
 
-  build:
+  schedule:
     strategy:
       fail-fast: false
       max-parallel: 2
