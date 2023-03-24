@@ -40,5 +40,5 @@ jobs:
         context: .
         push: true
         tags: ${{ matrix.edition }}-${{ matrix.version }}
-        labels: ${{ steps.meta.outputs.labels }}
+        labels: ${{ matrix.registrg }}
 
