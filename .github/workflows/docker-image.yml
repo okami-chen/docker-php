@@ -33,13 +33,12 @@ jobs:
       id: meta
       uses: docker/metadata-action@v4
       with:
-          images: ${{ matrix.registrg }}:${{ matrix.edition }}-${{ matrix.version }}
-
+          images: ${{ matrix.registrg }}
     - name: Build And Push Docker image
       uses: docker/build-push-action@v3
       with:
         context: .
         push: true
-        tags: ${{ steps.meta.outputs.tags }}
+        tags: ${{ matrix.edition }}-${{ matrix.version }}
         labels: ${{ steps.meta.outputs.labels }}
 
