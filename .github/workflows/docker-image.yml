@@ -18,7 +18,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build The Docker Image
-      run: docker build . --file Dockerfile-8.2-octane --tag {{env.IMAGE_NAME}} 
+      run: docker build . --file Dockerfile-8.2-octane --tag sync402/docker-php:octane-8.2.4
 
     # 登录  
     - name: Log into registry ${{ env.REGISTRY }}
