@@ -10,9 +10,9 @@ jobs:
     strategy:
       max-parallel: 2
       matrix:
-        version: ["7.1","7.2","7.3","7.4","8.0","8.1","8.2"]
+        version: ["8.2","8.1","8.0","7.4","7.3","7.2","7.1"]
         edition: ["web","octane"]
-        registrg: ["registry.cn-shanghai.aliyuncs.com","registry.cn-hangzhou.aliyuncs.com"]
+        registrg: ["registry.cn-shanghai.aliyuncs.com","registry.cn-hangzhou.aliyuncs.com","registry.cn-beijing.aliyuncs.com"]
     runs-on: ubuntu-latest
 
     steps:
