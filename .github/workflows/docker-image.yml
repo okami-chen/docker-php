@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Docker Image Octane
 
 on:
   push:
@@ -8,17 +8,19 @@ on:
 
 env:
   REGISTRY: ''
-  IMAGE_NAME: 'sync402/docker-php:octane-8.2.4'
+  IMAGE_NAME: 'sync402/docker-php:octane'
 jobs:
 
   build:
-
+    strategy:
+      matrix:
+        version: [7.1,7.2,7.3,7.4,8.0,8.1,8.2]
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
     - name: Build The Docker Image
-      run: docker build . --file Dockerfile-8.2-octane --tag ${{env.IMAGE_NAME}}
+      run: docker build . --file Dockerfile-${{matrix.version}}-octane --tag ${{env.IMAGE_NAME}}-${{matrix.version}}
 
     # 登录  
     - name: Log into registry ${{ env.REGISTRY }}
@@ -28,6 +30,16 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Extract Docker metadata
+      id: meta
+      uses: docker/metadata-action@v4
+      with:
+          images: ${{ env.IMAGE_NAME }}-${{ matrix.version }}
+          tags: |
+            # set latest tag for default branch
+            type=raw,value=latest,enable={{is_default_branch}}
+            # tag event
+            type=ref,enable=true,priority=600,prefix=,suffix=,event=tag
 
     - name: Build And push Docker image
       uses: docker/build-push-action@v3
