@@ -8,11 +8,17 @@ jobs:
 
   build:
     strategy:
+      fail-fast: false
       max-parallel: 2
       matrix:
         version: ["8.2","8.1","8.0","7.4","7.3","7.2","7.1"]
         edition: ["web","octane"]
         registrg: ["registry.cn-shanghai.aliyuncs.com","registry.cn-hangzhou.aliyuncs.com","registry.cn-beijing.aliyuncs.com"]
+ #       include:
+ #        - version: "8.2"
+ #          last: "4"
+ #        - version: "8.1"
+ #          last: "17"
     runs-on: ubuntu-latest
 
     steps:
@@ -34,7 +40,8 @@ jobs:
       uses: docker/metadata-action@v4
       with:
           images: ${{ matrix.registrg }}
-    - name: Build And Push Docker image
+
+    - name: Build And Push Docker Image
       uses: docker/build-push-action@v3
       with:
         context: .
