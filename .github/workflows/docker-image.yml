@@ -8,7 +8,7 @@ jobs:
   schedule:
     strategy:
       fail-fast: false
-      max-parallel: 2
+ #     max-parallel: 2
       matrix:
         version: ["8.2","8.1","8.0","7.4","7.3","7.2","7.1"]
         edition: ["web","octane"]
