@@ -68,7 +68,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       # Login cn-shenzhen
-      - name: Login Into ChengDu
+      - name: Login Into ShenZheng
         uses: docker/login-action@v2
         with:
           registry: "registry.cn-shenzhen.aliyuncs.com"
@@ -76,7 +76,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       # Login docker-hub
-      - name: Login Into ChengDu
+      - name: Login Into Docker-Hub
         uses: docker/login-action@v2
         with:
           registry: "docker.io"
