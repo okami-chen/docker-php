@@ -51,6 +51,38 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      # Login cn-guangzhou
+      - name: Login Into GuangZhou
+        uses: docker/login-action@v2
+        with:
+          registry: "registry.cn-guangzhou.aliyuncs.com"
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Login cn-chengdu
+      - name: Login Into ChengDu
+        uses: docker/login-action@v2
+        with:
+          registry: "registry.cn-chengdu.aliyuncs.com"
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Login cn-ShenZhen
+      - name: Login Into ChengDu
+        uses: docker/login-action@v2
+        with:
+          registry: "registry.cn-shenzhen.aliyuncs.com"
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Login docker-hub
+      - name: Login Into ChengDu
+        uses: docker/login-action@v2
+        with:
+          registry: "docker.io"
+          username: "sync402"
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
       - name: Build And Push
         uses: docker/build-push-action@v4
         with:
@@ -62,4 +94,6 @@ jobs:
             registry.cn-hangzhou.aliyuncs.com/okami/docker-php:${{ matrix.edition }}-${{ matrix.version }}
             registry.cn-shanghai.aliyuncs.com/okami/docker-php:${{ matrix.edition }}-${{ matrix.version }}
             registry.cn-beijing.aliyuncs.com/okami/docker-php:${{ matrix.edition }}-${{ matrix.version }}
+            registry.cn-chengdu.aliyuncs.com/okami/docker-php:${{ matrix.edition }}-${{ matrix.version }}
+            registry.cn-shenzhen.aliyuncs.com/okami/docker-php:${{ matrix.edition }}-${{ matrix.version }}
 
