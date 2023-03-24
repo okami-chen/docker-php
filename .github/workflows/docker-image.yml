@@ -8,7 +8,7 @@ on:
 
 env:
   REGISTRY: ''
-  IMAGE_NAME: 'sync402:octane-8.2.4'
+  IMAGE_NAME: 'sync402/docker-php:octane-8.2.4'
 jobs:
 
   build:
@@ -18,7 +18,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build The Docker Image
-      run: docker build . --file Dockerfile-8.2-octane --tag sync402/docker-php:octane-8.2.4
+      run: docker build . --file Dockerfile-8.2-octane --tag {{IMAGE_NAME}}
 
     # 登录  
     - name: Log into registry ${{ env.REGISTRY }}
