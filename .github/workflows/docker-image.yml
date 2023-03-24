@@ -19,7 +19,7 @@ jobs:
  #          last: "4"
  #        - version: "8.1"
  #          last: "17"
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v3
