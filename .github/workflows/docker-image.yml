@@ -7,7 +7,7 @@ on:
     branches:
       - v2
 jobs:
-  schedule:
+  build:
     strategy:
       fail-fast: false
       #     max-parallel: 2
