@@ -1,0 +1,97 @@
+name: Docker Image Build
+
+on:
+  schedule:
+  - cron: "30 4 * * *"
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      #     max-parallel: 2
+      matrix:
+        version: ["8.2","8.1","8.0"]
+        edition: ["web","octane"]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Login cn-shanghai
+      - name: Login Into ShangHai
+        uses: docker/login-action@v2
+        with:
+          registry: "registry.cn-shanghai.aliyuncs.com"
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Login cn-hangzhou
+      - name: Login Into HangZhou
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v2
+        with:
+          registry: "registry.cn-hangzhou.aliyuncs.com"
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Login cn-beijing
+      - name: Login Into BeiJing
+        uses: docker/login-action@v2
+        with:
+          registry: "registry.cn-beijing.aliyuncs.com"
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Login cn-guangzhou
+      - name: Login Into GuangZhou
+        uses: docker/login-action@v2
+        with:
+          registry: "registry.cn-guangzhou.aliyuncs.com"
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Login cn-chengdu
+      - name: Login Into ChengDu
+        uses: docker/login-action@v2
+        with:
+          registry: "registry.cn-chengdu.aliyuncs.com"
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Login cn-shenzhen
+      - name: Login Into ShenZheng
+        uses: docker/login-action@v2
+        with:
+          registry: "registry.cn-shenzhen.aliyuncs.com"
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Login docker-hub
+      - name: Login Into Docker-Hub
+        uses: docker/login-action@v2
+        with:
+          registry: "docker.io"
+          username: "sync402"
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build And Push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          file: Dockerfile-${{matrix.version}}-${{matrix.edition}}
+          tags: |
+            registry.cn-hangzhou.aliyuncs.com/okami/docker-php:${{ matrix.edition }}-${{ matrix.version }}
+            registry.cn-shanghai.aliyuncs.com/okami/docker-php:${{ matrix.edition }}-${{ matrix.version }}
+            registry.cn-beijing.aliyuncs.com/okami/docker-php:${{ matrix.edition }}-${{ matrix.version }}
+            registry.cn-chengdu.aliyuncs.com/okami/docker-php:${{ matrix.edition }}-${{ matrix.version }}
+            registry.cn-shenzhen.aliyuncs.com/okami/docker-php:${{ matrix.edition }}-${{ matrix.version }}
+            sync402/docker-php:${{ matrix.edition }}-${{ matrix.version }}
