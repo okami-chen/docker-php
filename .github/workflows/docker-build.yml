@@ -3,6 +3,8 @@ name: Docker Build
 on:
   schedule:
   - cron: "30 4 * * *"
+  push:
+    branches: ["v2"]
 
 jobs:
   build:
