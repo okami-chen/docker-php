@@ -94,3 +94,4 @@ jobs:
             registry.cn-beijing.aliyuncs.com/okami/docker-php:${{ matrix.edition }}-${{ matrix.version }}
             registry.cn-chengdu.aliyuncs.com/okami/docker-php:${{ matrix.edition }}-${{ matrix.version }}
             registry.cn-shenzhen.aliyuncs.com/okami/docker-php:${{ matrix.edition }}-${{ matrix.version }}
+            sync402/docker-php:${{ matrix.edition }}-${{ matrix.version }}
