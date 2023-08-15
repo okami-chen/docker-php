@@ -10,6 +10,10 @@ fi
 cat /usr/local/etc/php/php.ini-production > /usr/local/etc/php/php.ini
 cat /run/nginx/nginx.conf > /etc/nginx/nginx.conf
 
+if [ ! -d "/etc/nginx/vhosts" ];then
+  mkdir /etc/nginx/vhosts
+fi
+
 # For Laravel
 mkdir /home/wwwlogs && chown www-data:www-data /home/wwwlogs
 mkdir -p /var/www/html/storage/logs/supervisor
