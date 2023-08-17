@@ -125,8 +125,3 @@ docker rmi registry.cn-qingdao.aliyuncs.com/okami/docker-php:web-8.0
 
 docker rmi sync402/docker-php:web-8.0
 docker rmi sync402/docker-php:web-8.0.30
-
-docker rmi php:8.0-cli-alpine
-docker rmi php:8.0-fpm-alpine
-docker rmi php:8.0.30-cli-alpine
-docker rmi php:8.0.30-fpm-alpine

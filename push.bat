@@ -56,9 +56,9 @@ docker push sync402/docker-php:web-8.1
 docker rmi sync402/docker-php:web-8.1
 docker rmi php:8.2-cli-alpine
 docker rmi php:8.2-fpm-alpine
-docker push sync402/docker-php:octane-8.2.9
+docker push sync402/docker-php:octane-8.2.8
 docker push sync402/docker-php:octane-8.2
 docker rmi sync402/docker-php:octane-8.2
-docker push sync402/docker-php:web-8.2.9
+docker push sync402/docker-php:web-8.2.8
 docker push sync402/docker-php:web-8.2
 docker rmi sync402/docker-php:web-8.2
