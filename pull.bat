@@ -48,8 +48,8 @@ docker tag php:8.1.22-cli-alpine php:8.1-cli-alpine
 docker pull php:8.1.22-fpm-alpine
 docker tag php:8.1.22-fpm-alpine php:8.1-fpm-alpine
 
-docker pull php:8.2.8-cli-alpine
-docker tag php:8.2.8-cli-alpine php:8.2-cli-alpine
+docker pull php:8.2.9-cli-alpine
+docker tag php:8.2.9-cli-alpine php:8.2-cli-alpine
 
-docker pull php:8.2.8-fpm-alpine
-docker tag php:8.2.8-fpm-alpine php:8.2-fpm-alpine
+docker pull php:8.2.9-fpm-alpine
+docker tag php:8.2.9-fpm-alpine php:8.2-fpm-alpine

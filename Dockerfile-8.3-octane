@@ -1,0 +1,33 @@
+FROM php:8.3.0beta3-cli-alpine
+
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+COPY ./conf/php/cli.sh /tmp/cli.sh
+COPY ./conf/octane/start.sh /opt/start.sh
+COPY ./conf/shell/runtime.sh /opt/runtime.sh
+COPY ./conf/octane/nginx.conf /run/nginx/nginx.conf
+COPY ./conf/octane/octane.ini /etc/supervisor.d/octane.ini
+
+ARG DOCKER_ENV=production
+ENV TIMEZONE=${timezone:-"Asia/Shanghai"} \
+    LANG=C.UTF-8 \
+    COMPOSER_ALLOW_SUPERUSER=1 \
+    OCTANE_WORKERS=4 \
+    OCTANE_TASKS=4 \
+    OCTANE_MAX_REQUESTS=2000 \
+    OCTANE_START=true
+
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && apk update \
+&& apk add -U tzdata \
+&& cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone \
+&& apk del tzdata \
+&& install-php-extensions intl ldap dba shmop calendar exif gettext pcntl sysvsem sysvshm sysvmsg soap \
+pdo_mysql mysqli bcmath sockets zip bz2 redis opcache @composer amqp swoole mongodb xlswriter \
+&& composer config -g repo.packagist composer https://mirrors.cloud.tencent.com/composer/ \
+&& apk update && apk upgrade && apk add --no-cache bash bash-completion supervisor nginx \
+&& chmod + /tmp/cli.sh && /bin/bash /tmp/cli.sh mkdir -p /run/nginx \
+&& rm -rf /var/cache/apk/* /tmp/* /usr/share/man /var/lib/apt/lists/* \
+&& chmod +x /opt/*.sh
+
+EXPOSE 80 8000
+
+CMD ["/opt/start.sh"]

@@ -1,7 +1,7 @@
 <?php
 
 $version = [
-    '7.0.33','7.1.33','7.2.34','7.3.33','7.4.33','8.0.30', '8.1.22', '8.2.8'
+    '7.0.33','7.1.33','7.2.34','7.3.33','7.4.33','8.0.30', '8.1.22', '8.2.9'
 ];
 
 class Docker
@@ -83,8 +83,8 @@ class Docker
             $this->pullImage($smallVerion, 'cli');
             $this->pullImage($smallVerion, 'fpm');
 
-            $this->buildImage($smallVerion, 'octane');
             $this->buildImage($smallVerion, 'web');
+            $this->buildImage($smallVerion, 'octane');
             //$this->cmds[] = 'docker rmi php:' . $this->bigVersion . '.' . $this->smallVersion . '-cli-alpine';
             //$this->cmds[] = 'docker rmi php:' . $this->bigVersion . '.' . $this->smallVersion . '-fpm-alpine';
             //$this->cmds[] = 'docker rmi php:' . $this->bigVersion . '.' . $this->smallVersion .'.'.$this->lastVersion. '-cli-alpine';
