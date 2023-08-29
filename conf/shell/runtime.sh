@@ -12,10 +12,10 @@ if [ -d "/var/www/html/supervisor.d/${DOCKER_ENV}" ];then
     echo -e "\033[42;37m copy supervisor.d/${DOCKER_ENV}/*.ini To  /etc/supervisor.d \033[0m"
 fi
 
-if [ -f "/var/www/html/composer.json" ];then
-    echo -e "\033[42;37m composer install start \033[0m"
-    composer install --optimize-autoloader --no-dev -vv
-    echo -e "\033[42;37m composer install finish \033[0m"
+if [ ! -d "/var/www/html/vendor" && -f "/var/www/html/composer.json" ];then
+      echo -e "\033[42;37m composer install start \033[0m"
+      composer install --optimize-autoloader --no-dev -vv
+      echo -e "\033[42;37m composer install finish \033[0m"
 fi
 
 if [ -d "/var/www/html" ];then

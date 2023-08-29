@@ -5,3 +5,4 @@ echo "post_max_size=64M" >> /usr/local/etc/php/conf.d/99_overrides.ini
 echo "memory_limit=64M" >> /usr/local/etc/php/conf.d/99_overrides.ini
 echo "date.timezone=Asia/Shanghai" >> /usr/local/etc/php/conf.d/99_overrides.ini
 echo "display_errors = On" >> /usr/local/etc/php/conf.d/99_overrides.ini
+echo "opcache.jit_buffer_size=100M" >> /usr/local/etc/php/conf.d/99_overrides.ini
