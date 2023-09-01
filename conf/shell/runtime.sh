@@ -13,7 +13,7 @@ if [ -d "/var/www/html/supervisor.d/${DOCKER_ENV}" ];then
 fi
 
 if [ ! -d "/var/www/html/vendor" ];then
-    if [-f "/var/www/html/composer.json" ];then
+    if [ -f "/var/www/html/composer.json" ];then
       echo -e "\033[42;37m composer install start \033[0m"
       composer install --optimize-autoloader --no-dev -vv
       echo -e "\033[42;37m composer install finish \033[0m"
