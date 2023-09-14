@@ -53,8 +53,8 @@ fi
 
 /usr/bin/supervisord -c /etc/supervisord.conf
 
-if [ -f "/opt/run.sh" ];then
-  /bin/bash /opt/run.sh
+if [ -f "/opt/runtime.sh" ];then
+  /bin/bash /opt/runtime.sh
 fi
 
 nginx -g "daemon off;"
