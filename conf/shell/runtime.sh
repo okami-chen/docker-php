@@ -31,7 +31,7 @@ fi
 echo -e "\033[42;37m Check /var/www/html To www-data \033[0m"
 
 if [ -d "/var/www/html" ];then
-    // chown -R www-data:www-data  /var/www/html
+#  chown -R www-data:www-data  /var/www/html
 fi
 
 # For Nginx
