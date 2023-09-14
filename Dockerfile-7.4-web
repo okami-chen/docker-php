@@ -5,12 +5,12 @@ COPY ./conf/php/fpm.sh /tmp/php-fpm.sh
 COPY ./conf/nginx/start.sh /opt/start.sh
 COPY ./conf/shell/runtime.sh /opt/runtime.sh
 COPY ./conf/nginx/nginx.conf /run/nginx/nginx.conf
-COPY ./conf/php/opcache.ini /usr/local/php/ext/conf.d/docker-php-ext-zzz-opcache.ini
 
 ARG DOCKER_ENV=production
 ENV TIMEZONE=${timezone:-"Asia/Shanghai"} \
     LANG=C.UTF-8 \
-    COMPOSER_ALLOW_SUPERUSER=1
+    COMPOSER_ALLOW_SUPERUSER=1 \
+    OPCACHE_ENABLE=1
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && apk update \
 && apk add -U tzdata \
