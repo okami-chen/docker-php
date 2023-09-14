@@ -11,12 +11,28 @@ cat /usr/local/etc/php/php.ini-production > /usr/local/etc/php/php.ini
 cat /run/nginx/nginx.conf > /etc/nginx/nginx.conf
 
 # For Laravel
-mkdir /home/wwwlogs
+if [ ! -d "/home/wwwlogs" ];then
+    mkdir /home/wwwlogs
+fi
 chown www-data:www-data /home/wwwlogs
-mkdir -p /var/www/html/storage/logs/supervisor
-mkdir -p /var/www/html/storage/app/
-mkdir -p /var/www/html/storage/framework/
-chmod 777 -R /var/www/html/storage/
+
+if [ ! -d "/var/www/html/storage" ];then
+    mkdir /var/www/html/storage
+fi
+
+if [ ! -d "/var/www/html/storage/logs" ];then
+    mkdir /var/www/html/storage/logs
+fi
+
+if [ ! -d "/var/www/html/storage/app" ];then
+    mkdir /var/www/html/storage/app
+fi
+
+if [ ! -d "/var/www/html/storage/framework" ];then
+    mkdir /var/www/html/storage/framework
+fi
+
+chmod 777 -R /var/www/html/storage
 
 if [ -d "/var/www/html/bootstrap/cache" ];then
     chmod 777 -R /var/www/html/bootstrap/cache

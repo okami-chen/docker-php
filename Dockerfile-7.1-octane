@@ -6,6 +6,7 @@ COPY ./conf/octane/start.sh /opt/start.sh
 COPY ./conf/shell/runtime.sh /opt/runtime.sh
 COPY ./conf/octane/nginx.conf /run/nginx/nginx.conf
 COPY ./conf/octane/octane.ini /etc/supervisor.d/octane.ini
+COPY ./conf/php/opcache.ini /usr/local/php/ext/conf.d/docker-php-ext-zzz-opcache.ini
 
 ARG DOCKER_ENV=production
 ENV TIMEZONE=${timezone:-"Asia/Shanghai"} \

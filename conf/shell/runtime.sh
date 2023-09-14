@@ -21,7 +21,7 @@ if [ ! -d "/var/www/html/vendor" ];then
 fi
 
 if [ -d "/var/www/html" ];then
-    chown -R www-data:www-data  /var/www/html/
+    chown -R www-data:www-data  /var/www/html
 fi
 
 # For Nginx

@@ -5,6 +5,7 @@ COPY ./conf/php/fpm.sh /tmp/php-fpm.sh
 COPY ./conf/nginx/start.sh /opt/start.sh
 COPY ./conf/shell/runtime.sh /opt/runtime.sh
 COPY ./conf/nginx/nginx.conf /run/nginx/nginx.conf
+COPY ./conf/php/opcache.ini /usr/local/php/ext/conf.d/docker-php-ext-zzz-opcache.ini
 
 ARG DOCKER_ENV=production
 ENV TIMEZONE=${timezone:-"Asia/Shanghai"} \
