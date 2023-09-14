@@ -62,3 +62,11 @@ docker rmi sync402/docker-php:octane-8.2
 docker push sync402/docker-php:web-8.2.10
 docker push sync402/docker-php:web-8.2
 docker rmi sync402/docker-php:web-8.2
+docker rmi php:8.3-cli-alpine
+docker rmi php:8.3-fpm-alpine
+docker push sync402/docker-php:octane-8.3.0RC1
+docker push sync402/docker-php:octane-8.3
+docker rmi sync402/docker-php:octane-8.3
+docker push sync402/docker-php:web-8.3.0RC1
+docker push sync402/docker-php:web-8.3
+docker rmi sync402/docker-php:web-8.3

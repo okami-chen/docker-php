@@ -1,7 +1,7 @@
 <?php
 
 $version = [
-    '7.0.33','7.1.33','7.2.34','7.3.33','7.4.33','8.0.30', '8.1.23', '8.2.10'
+    '7.0.33','7.1.33','7.2.34','7.3.33','7.4.33','8.0.30', '8.1.23', '8.2.10','8.3.0RC1'
 ];
 
 class Docker
@@ -51,9 +51,9 @@ class Docker
 
     /**
      * 小版本号
-     * @var int $smallVersion
+     * @var string $lastVersion
      */
-    protected int $lastVersion = 0;
+    protected string $lastVersion = '';
 
     /**
      * 当前版本最新
