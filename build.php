@@ -83,8 +83,8 @@ class Docker
             $this->pullImage($smallVerion, 'cli');
             $this->pullImage($smallVerion, 'fpm');
 
-            $this->buildImage($smallVerion, 'web');
             $this->buildImage($smallVerion, 'octane');
+            $this->buildImage($smallVerion, 'web');
             //$this->cmds[] = 'docker rmi php:' . $this->bigVersion . '.' . $this->smallVersion . '-cli-alpine';
             //$this->cmds[] = 'docker rmi php:' . $this->bigVersion . '.' . $this->smallVersion . '-fpm-alpine';
             //$this->cmds[] = 'docker rmi php:' . $this->bigVersion . '.' . $this->smallVersion .'.'.$this->lastVersion. '-cli-alpine';

@@ -51,6 +51,10 @@ fi
 echo "COLUMNS=2000" >> /root/.bashrc
 echo 'alias ll="ls -la"' >> /root/.bashrc
 
+if [ ${OPCACHE_ENABLE} == 0 ];then
+  sed -i 's/opcache.enable = 1/opcache.enable = 0/g' /usr/local/etc/php/conf.d/docker-php-ext-zzz-opcache.ini
+fi
+
 # For Supervisor
 if [ -d "/var/www/html/supervisor.d" ];then
     cp /var/www/html/supervisor.d/*.ini /etc/supervisor.d

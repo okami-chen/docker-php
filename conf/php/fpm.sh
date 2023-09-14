@@ -8,7 +8,7 @@ echo "display_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-zzz-zzz.i
 
 echo -e "\033[42;37m Check Opcache ${OPCACHE_ENABLE} \033[0m"
 
-echo "opcache.enable = ${OPCACHE_ENABLE}" >> /usr/local/etc/php/conf.d/docker-php-ext-zzz-opcache.ini
+echo "opcache.enable = 1" >> /usr/local/etc/php/conf.d/docker-php-ext-zzz-opcache.ini
 echo "opcache.enable_cli = 0" >> /usr/local/etc/php/conf.d/docker-php-ext-zzz-opcache.ini
 echo "opcache.memory_consumption = 128" >> /usr/local/etc/php/conf.d/docker-php-ext-zzz-opcache.ini
 echo "opcache.interned_strings_buffer = 8" >> /usr/local/etc/php/conf.d/docker-php-ext-zzz-opcache.ini
