@@ -1,15 +1,23 @@
 #!/usr/bin/env bash
 
-echo -e "\033[42;37m RUNTIME ${DOCKER_ENV} \033[0m"
+echo -e "\033[42;37m Check /var/www/html/.env.${DOCKER_ENV} \033[0m"
 
 if [ -f "/var/www/html/.env.${DOCKER_ENV}" ];then
     cat /var/www/html/.env.${DOCKER_ENV} > /var/www/html/.env
     echo -e "\033[42;37m cat .env.${DOCKER_ENV} ->  .env \033[0m"
 fi
 
+echo -e "\033[42;37m Check /var/www/html/supervisor.d/${DOCKER_ENV} \033[0m"
+
 if [ -d "/var/www/html/supervisor.d/${DOCKER_ENV}" ];then
     cp /var/www/html/supervisor.d/${DOCKER_ENV}/*.ini /etc/supervisor.d
     echo -e "\033[42;37m copy supervisor.d/${DOCKER_ENV}/*.ini To  /etc/supervisor.d \033[0m"
+fi
+
+echo -e "\033[42;37m Check /var/www/html/composer.${DOCKER_ENV}.json \033[0m"
+
+if [ -f "/var/www/html/composer.${DOCKER_ENV}.json" ];then
+  cat /var/www/html/composer.${DOCKER_ENV}.json > /var/www/html/composer.json
 fi
 
 if [ ! -d "/var/www/html/vendor" ];then
@@ -19,6 +27,8 @@ if [ ! -d "/var/www/html/vendor" ];then
       echo -e "\033[42;37m composer install finish \033[0m"
     fi
 fi
+
+echo -e "\033[42;37m Check /var/www/html To www-data \033[0m"
 
 if [ -d "/var/www/html" ];then
     chown -R www-data:www-data  /var/www/html

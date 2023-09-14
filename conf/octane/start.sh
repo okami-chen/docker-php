@@ -46,6 +46,8 @@ fi
 echo "COLUMNS=2000" >> /root/.bashrc
 echo 'alias ll="ls -la"' >> /root/.bashrc
 
+
+echo -e "\033[42;37m Check /var/www/html/supervisor.d \033[0m"
 # For Supervisor
 if [ -d "/var/www/html/supervisor.d" ];then
     cp /var/www/html/supervisor.d/*.ini /etc/supervisor.d
@@ -53,8 +55,12 @@ fi
 
 /usr/bin/supervisord -c /etc/supervisord.conf
 
+echo -e "\033[42;37m Check /opt/runtime.sh \033[0m"
+
 if [ -f "/opt/runtime.sh" ];then
   /bin/bash /opt/runtime.sh
 fi
+
+echo -e "\033[42;37m Start Nginx \033[0m"
 
 nginx -g "daemon off;"
