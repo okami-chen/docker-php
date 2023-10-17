@@ -42,17 +42,17 @@ docker tag php:8.0.30-cli-alpine php:8.0-cli-alpine
 docker pull php:8.0.30-fpm-alpine
 docker tag php:8.0.30-fpm-alpine php:8.0-fpm-alpine
 
-docker pull php:8.1.23-cli-alpine
-docker tag php:8.1.23-cli-alpine php:8.1-cli-alpine
+docker pull php:8.1.24-cli-alpine
+docker tag php:8.1.24-cli-alpine php:8.1-cli-alpine
 
-docker pull php:8.1.23-fpm-alpine
-docker tag php:8.1.23-fpm-alpine php:8.1-fpm-alpine
+docker pull php:8.1.24-fpm-alpine
+docker tag php:8.1.24-fpm-alpine php:8.1-fpm-alpine
 
-docker pull php:8.2.10-cli-alpine
-docker tag php:8.2.10-cli-alpine php:8.2-cli-alpine
+docker pull php:8.2.11-cli-alpine
+docker tag php:8.2.11-cli-alpine php:8.2-cli-alpine
 
-docker pull php:8.2.10-fpm-alpine
-docker tag php:8.2.10-fpm-alpine php:8.2-fpm-alpine
+docker pull php:8.2.11-fpm-alpine
+docker tag php:8.2.11-fpm-alpine php:8.2-fpm-alpine
 
 docker pull php:8.3.0RC1-cli-alpine
 docker tag php:8.3.0RC1-cli-alpine php:8.3-cli-alpine
