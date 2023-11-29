@@ -1,4 +1,4 @@
-FROM php:8.3.0RC6-fpm-alpine
+FROM php:8.3.0-fpm-alpine
 
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 COPY ./conf/php/fpm.sh /tmp/php-fpm.sh
