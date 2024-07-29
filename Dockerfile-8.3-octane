@@ -22,8 +22,8 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
 && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone \
 && apk del tzdata \
 && install-php-extensions intl ldap dba shmop calendar exif gettext pcntl sysvsem sysvshm sysvmsg soap \
-pdo_mysql mysqli bcmath sockets zip bz2 redis opcache @composer amqp swoole mongodb xlswriter \
-grpc igbinary imap lzf lz4 mcrypt odbc pdo_odbc pdo_pgsql protobuf rdkafka sodium xmlrpc \
+pdo_mysql mysqli bcmath sockets zip bz2 redis opcache @composer amqp swoole  xlswriter \
+igbinary imap lzf lz4 mcrypt sodium xmlrpc \
 && composer config -g repo.packagist composer https://mirrors.cloud.tencent.com/composer/ \
 && apk update && apk upgrade && apk add --no-cache bash bash-completion supervisor nginx \
 && chmod + /tmp/cli.sh && /bin/bash /tmp/cli.sh mkdir -p /run/nginx \
