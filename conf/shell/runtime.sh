@@ -23,12 +23,12 @@ fi
 if [ ! -d "/var/www/html/vendor" ];then
     if [ -f "/var/www/html/composer.json" ];then
       echo -e "\033[42;37m composer install start \033[0m"
-      composer install --optimize-autoloader --no-dev -vv
+      composer install --optimize-autoloader --no-dev -vvv
       echo -e "\033[42;37m composer install finish \033[0m"
     fi
 fi
 
-echo -e "\033[42;37m Check /var/www/html To www-data \033[0m"
+#echo -e "\033[42;37m Check /var/www/html To www-data \033[0m"
 
 #if [ -d "/var/www/html" ];then
 #  chown -R www-data:www-data  /var/www/html

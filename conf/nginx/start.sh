@@ -37,7 +37,23 @@ if [ ! -d "/var/www/html/storage/framework" ];then
     mkdir /var/www/html/storage/framework
 fi
 
+if [ ! -d "/var/www/html/storage/logs" ];then
+  mkdir -p /var/www/html/storage/logs
+fi
+
+if [ ! -f "/var/www/html/storage/logs/supervisor/app_out.log" ];then
+    touch /var/www/html/storage/logs/supervisor/app_out.log
+fi
+
+if [ ! -f "/var/www/html/storage/logs/supervisor/app_out.log" ];then
+    touch /var/www/html/storage/logs/supervisor/app_err.log
+fi
+
 chmod 777 -R /var/www/html/storage
+
+if [ ! -d "/var/www/html/bootstrap/cache" ];then
+  mkdir -p /var/www/html/bootstrap/cache
+fi
 
 if [ -d "/var/www/html/bootstrap/cache" ];then
     chmod 777 -R /var/www/html/bootstrap/cache
@@ -67,5 +83,8 @@ if [ -f "/opt/runtime.sh" ];then
   /bin/bash /opt/runtime.sh
 fi
 
+/usr/bin/supervisord -c /etc/supervisord.conf
+
 php-fpm
+
 nginx -g "daemon off;"

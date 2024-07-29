@@ -32,7 +32,23 @@ if [ ! -d "/var/www/html/storage/framework" ];then
     mkdir /var/www/html/storage/framework
 fi
 
+if [ ! -d "/var/www/html/storage/logs" ];then
+  mkdir -p /var/www/html/storage/logs
+fi
+
+if [ ! -f "/var/www/html/storage/logs/supervisor/app_out.log" ];then
+    touch /var/www/html/storage/logs/supervisor/app_out.log
+fi
+
+if [ ! -f "/var/www/html/storage/logs/supervisor/app_out.log" ];then
+    touch /var/www/html/storage/logs/supervisor/app_err.log
+fi
+
 chmod 777 -R /var/www/html/storage
+
+if [ ! -d "/var/www/html/bootstrap/cache" ];then
+  mkdir -p /var/www/html/bootstrap/cache
+fi
 
 if [ -d "/var/www/html/bootstrap/cache" ];then
     chmod 777 -R /var/www/html/bootstrap/cache
@@ -65,14 +81,14 @@ if [ -f "/var/www/html/storage/logs/supervisor/app_err.log" ];then
 fi
 
 # For Supervisor
-echo -e "\033[42;37m Check /var/www/html/supervisor.d \033[0m"
+
 if [ -d "/var/www/html/supervisor.d" ];then
+  echo -e "\033[42;37m copy /var/www/html/supervisor.d \033[0m"
     cp /var/www/html/supervisor.d/*.ini /etc/supervisor.d
 fi
 
-echo -e "\033[42;37m Check /opt/runtime.sh \033[0m"
-
 if [ -f "/opt/runtime.sh" ];then
+  echo -e "\033[42;37m exec /opt/runtime.sh \033[0m"
   /bin/bash /opt/runtime.sh
 fi
 
@@ -80,6 +96,6 @@ fi
 
 sleep 2s
 
-echo -e "\033[42;37m Start Nginx \033[0m"
+echo -e "\033[42;37m Start Web Server \033[0m"
 
 nginx -g "daemon off;"
