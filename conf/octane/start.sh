@@ -77,7 +77,7 @@ fi
 
 if [ -d "/var/www/html/supervisor.d" ];then
   echo -e "\033[42;37m copy /var/www/html/supervisor.d \033[0m"
-    cp /var/www/html/supervisor.d/*.ini /etc/supervisor.d
+  cp /var/www/html/supervisor.d/*.ini /etc/supervisor.d
 fi
 
 if [ -f "/opt/runtime.sh" ];then
@@ -85,7 +85,15 @@ if [ -f "/opt/runtime.sh" ];then
   /bin/bash /opt/runtime.sh
 fi
 
+if [ -f "/opt/supervisor.sh" ];then
+  /bin/bash /opt/supervisor.sh
+fi
+
 /usr/bin/supervisord -c /etc/supervisord.conf
+
+if [ -f "/opt/service.sh" ];then
+  /bin/bash /opt/service.sh
+fi
 
 sleep 2s
 

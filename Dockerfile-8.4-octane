@@ -1,4 +1,4 @@
-FROM php:8.4.0alpha2-cli-alpine
+FROM php:8.4.0alpha4-cli-alpine
 
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 COPY ./conf/php/cli.sh /tmp/cli.sh
@@ -16,6 +16,8 @@ ENV TIMEZONE=${timezone:-"Asia/Shanghai"} \
     OCTANE_TASKS=4 \
     OCTANE_MAX_REQUESTS=2000 \
     OCTANE_START=true
+
+WORKDIR /var/www/html
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && apk update \
 && apk add -U tzdata \
