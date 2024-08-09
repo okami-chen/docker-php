@@ -14,6 +14,7 @@ cat /run/nginx/nginx.conf > /etc/nginx/nginx.conf
 if [ ! -d "/home/wwwlogs" ];then
     mkdir /home/wwwlogs
 fi
+
 chown www-data:www-data /home/wwwlogs
 
 if [ ! -d "/var/www/html/storage" ];then
@@ -32,8 +33,8 @@ if [ ! -d "/var/www/html/storage/framework" ];then
     mkdir /var/www/html/storage/framework
 fi
 
-if [ ! -d "/var/www/html/storage/logs" ];then
-  mkdir -p /var/www/html/storage/logs
+if [ ! -d "/var/www/html/storage/logs/supervisor" ];then
+  mkdir -p /var/www/html/storage/logs/supervisor
 fi
 
 if [ ! -f "/var/www/html/storage/logs/supervisor/app_out.log" ];then
@@ -70,14 +71,6 @@ fi
 
 if [ -f "/var/www/html/storage/logs/octane-server-state.json" ];then
     rm -rf /var/www/html/storage/logs/octane-server-state.json
-fi
-
-if [ -f "/var/www/html/storage/logs/supervisor/app_out.log" ];then
-  cat /dev/null > /var/www/html/storage/logs/supervisor/app_out.log
-fi
-
-if [ -f "/var/www/html/storage/logs/supervisor/app_err.log" ];then
-  cat /dev/null > /var/www/html/storage/logs/supervisor/app_err.log
 fi
 
 # For Supervisor
