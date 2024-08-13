@@ -97,7 +97,8 @@ fi
 if [ ! -d "/var/www/html/vendor" ];then
     if [ -f "/var/www/html/composer.json" ];then
       echo -e "\033[42;37m composer install start \033[0m"
-      cd /var/www/html/ && composer install --optimize-autoloader --no-dev -vvv
+#      cd /var/www/html/ && composer update --optimize-autoloader --no-dev -vvv
+      cd /var/www/html/ && composer update --optimize-autoloader -vvv
       echo -e "\033[42;37m composer install finish \033[0m"
     fi
 fi
