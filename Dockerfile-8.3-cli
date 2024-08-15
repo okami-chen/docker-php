@@ -12,8 +12,7 @@ ENV TIMEZONE=${timezone:-"Asia/Shanghai"} \
 
 WORKDIR /var/www/html
 
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && apk update \
-&& apk add -U tzdata \
+RUN apk update && apk add -U tzdata \
 && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone \
 && apk del tzdata \
 && install-php-extensions intl ldap dba shmop calendar exif gettext pcntl sysvsem sysvshm sysvmsg soap \
