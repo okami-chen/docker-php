@@ -12,15 +12,8 @@ jobs:
       fail-fast: false
       #     max-parallel: 2
       matrix:
-        version: ["8.4","8.3","8.2","8.1","8.0"]
-        edition: ["web","octane"]
-        include:
-          - version: "8.2"
-            edition: "cli"
-          - version: "8.3"
-            edition: "cli"
-          - version: "8.4"
-            edition: "cli"
+        version: ["8.4","8.3","8.2","8.1"]
+        edition: ["web","octane","cli"]
     runs-on: ubuntu-latest
 
     steps:
