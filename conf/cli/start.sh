@@ -21,4 +21,4 @@ sleep 2s
 
 echo -e "\033[42;37m Start Use Cli \033[0m"
 
-/usr/local/bin/php
+/usr/local/bin/php -a
