@@ -74,8 +74,11 @@ fi
 # For Supervisord
 
 echo -e "\033[42;37m Check /var/www/html/supervisor.d \033[0m"
+if [ ! -d /etc/supervisor.d ];then
+  mkdir -p /etc/supervisor.d
+fi
 
-if [ -d /var/www/html/supervisor.d/ ];then
+if [ -d /var/www/html/supervisor.d ];then
     cp /var/www/html/supervisor.d/*.ini /etc/supervisor.d
 fi
 
