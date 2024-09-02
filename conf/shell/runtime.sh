@@ -95,12 +95,12 @@ if [ -d "/var/www/html/supervisor.d" ]; then
 fi
 
 # 输出提示信息
-echo -e "\033[42;37m Check /var/www/html/supervisor.d/${DOCKER_ENV}*.ini \033[0m"
+echo -e "\033[42;37m Check /var/www/html/supervisor.d/${DOCKER_ENV}/*.ini \033[0m"
 
 # 检查 /var/www/html/supervisor.d/${DOCKER_ENV}*.ini 文件是否存在
 if ls /var/www/html/supervisor.d/${DOCKER_ENV}/*.ini 1> /dev/null 2>&1; then
     cp /var/www/html/supervisor.d/${DOCKER_ENV}/*.ini /etc/supervisor.d
-    echo -e "\033[42;37m copy /var/www/html/supervisor.d/${DOCKER_ENV}*.ini To /etc/supervisor.d \033[0m"
+    echo -e "\033[42;37m copy /var/www/html/supervisor.d/${DOCKER_ENV}/*.ini To /etc/supervisor.d \033[0m"
 fi
 
 # For Composer
@@ -108,6 +108,7 @@ fi
 echo -e "\033[42;37m Check /var/www/html/composer.${DOCKER_ENV}.json \033[0m"
 
 if [ -f "/var/www/html/composer.${DOCKER_ENV}.json" ]; then
+    cat /var/www/html/composer.json > /var/www/html/composer.json.bak
     cat /var/www/html/composer.${DOCKER_ENV}.json > /var/www/html/composer.json
 fi
 
@@ -116,6 +117,8 @@ if [ ! -d "/var/www/html/vendor" ]; then
         echo -e "\033[42;37m composer install start \033[0m"
         cd /var/www/html/ && composer update --optimize-autoloader -vvv
         echo -e "\033[42;37m composer install finish \033[0m"
+        cat /var/www/html/composer.json.bak > /var/www/html/composer.json
+        rm -rf /var/www/html/composer.json.bak
     fi
 fi
 
@@ -132,10 +135,10 @@ if [ -f "/usr/local/etc/php-fpm.d/www.conf" ]; then
 
     sed -i 's/pm = dynamic/pm = static/g' /usr/local/etc/php-fpm.d/www.conf
     sed -i 's/;pm.max_requests = 500/pm.max_requests = 500/g' /usr/local/etc/php-fpm.d/www.conf
-    sed -i 's/pm.max_children = 5/pm.max_children = 100/g' /usr/local/etc/php-fpm.d/www.conf
-    sed -i 's/pm.start_servers = 2/pm.start_servers = 80/g' /usr/local/etc/php-fpm.d/www.conf
-    sed -i 's/pm.min_spare_servers = 1/pm.min_spare_servers = 20/g' /usr/local/etc/php-fpm.d/www.conf
-    sed -i 's/pm.max_spare_servers = 3/pm.max_spare_servers = 100/g' /usr/local/etc/php-fpm.d/www.conf
+    sed -i 's/pm.max_children = 50/pm.max_children = 100/g' /usr/local/etc/php-fpm.d/www.conf
+    sed -i 's/pm.start_servers = 5/pm.start_servers = 80/g' /usr/local/etc/php-fpm.d/www.conf
+    sed -i 's/pm.min_spare_servers = 5/pm.min_spare_servers = 20/g' /usr/local/etc/php-fpm.d/www.conf
+    sed -i 's/pm.max_spare_servers = 50/pm.max_spare_servers = 100/g' /usr/local/etc/php-fpm.d/www.conf
 
 fi
 
