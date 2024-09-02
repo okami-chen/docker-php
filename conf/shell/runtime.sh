@@ -5,7 +5,7 @@ echo 'alias ll="ls -la"' >> /root/.bashrc
 
 if [ ! -d "/home/wwwlogs" ];then
     mkdir /home/wwwlogs
-fi
+
 # For Laravel
 
 if [ -f "/var/www/html/artisan" ];then
@@ -42,7 +42,9 @@ if [ -f "/var/www/html/artisan" ];then
       touch /var/www/html/storage/logs/supervisor/app_err.log
   fi
 
-  chmod 777 -R /var/www/html/storage
+  if [ -d "/var/www/html/storage" ];then
+      chmod 777 -R /var/www/html/storage
+  fi
 
   if [ ! -d "/var/www/html/bootstrap/cache" ];then
     mkdir -p /var/www/html/bootstrap/cache
@@ -78,15 +80,18 @@ if [ ! -d /etc/supervisor.d ];then
   mkdir -p /etc/supervisor.d
 fi
 
-if [ -d /var/www/html/supervisor.d ];then
+# 检查 /var/www/html/supervisor.d/ 目录下是否有 .ini 文件
+if ls /var/www/html/supervisor.d/*.ini 1> /dev/null 2>&1; then
     cp /var/www/html/supervisor.d/*.ini /etc/supervisor.d
 fi
 
-echo -e "\033[42;37m Check /var/www/html/supervisor.d/${DOCKER_ENV} \033[0m"
+# 输出提示信息
+echo -e "\033[42;37m Check /var/www/html/supervisor.d/${DOCKER_ENV}*.ini \033[0m"
 
-if [ -d "/var/www/html/supervisor.d/${DOCKER_ENV}" ];then
-    cp /var/www/html/supervisor.d/${DOCKER_ENV}/*.ini /etc/supervisor.d
-    echo -e "\033[42;37m copy supervisor.d/${DOCKER_ENV}/*.ini To  /etc/supervisor.d \033[0m"
+# 检查 /var/www/html/supervisor.d/${DOCKER_ENV}*.ini 文件是否存在
+if ls /var/www/html/supervisor.d/${DOCKER_ENV}*.ini 1> /dev/null 2>&1; then
+    cp /var/www/html/supervisor.d/${DOCKER_ENV}*.ini /etc/supervisor.d
+    echo -e "\033[42;37m copy /var/www/html/supervisor.d/${DOCKER_ENV}*.ini To /etc/supervisor.d \033[0m"
 fi
 
 # For Composer

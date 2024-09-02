@@ -19,6 +19,6 @@ fi
 
 sleep 2s
 
-echo -e "\033[42;37m Start Use Cli \033[0m"
+echo -e "\033[42;37m Start Server \033[0m"
 
 tail -f /dev/null
