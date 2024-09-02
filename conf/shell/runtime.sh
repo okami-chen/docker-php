@@ -81,7 +81,10 @@ if [ ! -d /etc/supervisor.d ];then
 fi
 
 # 检查 /var/www/html/supervisor.d/ 目录下是否有 .ini 文件
-if ls /var/www/html/supervisor.d/*.ini 1> /dev/null 2>&1; then
+if [-d /var/www/html/supervisor.d/ ];then
+    cp /var/www/html/supervisor.d/*.ini /etc/supervisor.d
+fi
+if [ -d "/var/www/html/supervisor.d" ];then
     cp /var/www/html/supervisor.d/*.ini /etc/supervisor.d
 fi
 
