@@ -3,72 +3,73 @@
 echo "COLUMNS=2000" >> /root/.bashrc
 echo 'alias ll="ls -la"' >> /root/.bashrc
 
-if [ ! -d "/home/wwwlogs" ];then
+if [ ! -d "/home/wwwlogs" ]; then
     mkdir /home/wwwlogs
+fi
 
 # For Laravel
 
-if [ -f "/var/www/html/artisan" ];then
+if [ -f "/var/www/html/artisan" ]; then
 
-  chmod +x /var/www/html/artisan
+    chmod +x /var/www/html/artisan
 
-  chown www-data:www-data /home/wwwlogs
+    chown www-data:www-data /home/wwwlogs
 
-  if [ ! -d "/var/www/html/storage" ];then
-      mkdir /var/www/html/storage
-  fi
+    if [ ! -d "/var/www/html/storage" ]; then
+        mkdir /var/www/html/storage
+    fi
 
-  if [ ! -d "/var/www/html/storage/logs" ];then
-      mkdir /var/www/html/storage/logs
-  fi
+    if [ ! -d "/var/www/html/storage/logs" ]; then
+        mkdir /var/www/html/storage/logs
+    fi
 
-  if [ ! -d "/var/www/html/storage/app" ];then
-      mkdir /var/www/html/storage/app
-  fi
+    if [ ! -d "/var/www/html/storage/app" ]; then
+        mkdir /var/www/html/storage/app
+    fi
 
-  if [ ! -d "/var/www/html/storage/framework" ];then
-      mkdir /var/www/html/storage/framework
-  fi
+    if [ ! -d "/var/www/html/storage/framework" ]; then
+        mkdir /var/www/html/storage/framework
+    fi
 
-  if [ ! -d "/var/www/html/storage/logs/supervisor" ];then
-    mkdir -p /var/www/html/storage/logs/supervisor
-  fi
+    if [ ! -d "/var/www/html/storage/logs/supervisor" ]; then
+        mkdir -p /var/www/html/storage/logs/supervisor
+    fi
 
-  if [ ! -f "/var/www/html/storage/logs/supervisor/app_out.log" ];then
-      touch /var/www/html/storage/logs/supervisor/app_out.log
-  fi
+    if [ ! -f "/var/www/html/storage/logs/supervisor/app_out.log" ]; then
+        touch /var/www/html/storage/logs/supervisor/app_out.log
+    fi
 
-  if [ ! -f "/var/www/html/storage/logs/supervisor/app_out.log" ];then
-      touch /var/www/html/storage/logs/supervisor/app_err.log
-  fi
+    if [ ! -f "/var/www/html/storage/logs/supervisor/app_err.log" ]; then
+        touch /var/www/html/storage/logs/supervisor/app_err.log
+    fi
 
-  if [ -d "/var/www/html/storage" ];then
-      chmod 777 -R /var/www/html/storage
-  fi
+    if [ -d "/var/www/html/storage" ]; then
+        chmod 777 -R /var/www/html/storage
+    fi
 
-  if [ ! -d "/var/www/html/bootstrap/cache" ];then
-    mkdir -p /var/www/html/bootstrap/cache
-  fi
+    if [ ! -d "/var/www/html/bootstrap/cache" ]; then
+        mkdir -p /var/www/html/bootstrap/cache
+    fi
 
-  if [ -d "/var/www/html/bootstrap/cache" ];then
-      chmod 777 -R /var/www/html/bootstrap/cache
-  fi
+    if [ -d "/var/www/html/bootstrap/cache" ]; then
+        chmod 777 -R /var/www/html/bootstrap/cache
+    fi
 
 fi
 
 echo -e "\033[42;37m Check Opcache \033[0m"
 
-if [ ${OPCACHE_ENABLE} == 0 ];then
-  sed -i 's/opcache.enable = 1/opcache.enable = 0/g' /usr/local/etc/php/conf.d/docker-php-ext-zzz-opcache.ini
+if [ "${OPCACHE_ENABLE}" == "0" ]; then
+    sed -i 's/opcache.enable = 1/opcache.enable = 0/g' /usr/local/etc/php/conf.d/docker-php-ext-zzz-opcache.ini
 fi
 
-if [ -f "/var/www/html/storage/logs/octane-server-state.json" ];then
+if [ -f "/var/www/html/storage/logs/octane-server-state.json" ]; then
     rm -rf /var/www/html/storage/logs/octane-server-state.json
 fi
 
 echo -e "\033[42;37m Check /var/www/html/.env.${DOCKER_ENV} \033[0m"
 
-if [ -f "/var/www/html/.env.${DOCKER_ENV}" ];then
+if [ -f "/var/www/html/.env.${DOCKER_ENV}" ]; then
     cat /var/www/html/.env.${DOCKER_ENV} > /var/www/html/.env
     echo -e "\033[42;37m cat .env.${DOCKER_ENV} ->  .env \033[0m"
 fi
@@ -76,15 +77,20 @@ fi
 # For Supervisord
 
 echo -e "\033[42;37m Check /var/www/html/supervisor.d \033[0m"
-if [ ! -d /etc/supervisor.d ];then
-  mkdir -p /etc/supervisor.d
+if [ ! -d /etc/supervisor.d ]; then
+    mkdir -p /etc/supervisor.d
 fi
 
 # 检查 /var/www/html/supervisor.d/ 目录下是否有 .ini 文件
-if [-d /var/www/html/supervisor.d/ ];then
-    cp /var/www/html/supervisor.d/*.ini /etc/supervisor.d
+#if [ -d /var/www/html/supervisor.d/ ]; then
+#    cp /var/www/html/supervisor.d/*.ini /etc/supervisor.d
+#fi
+
+if ls /var/www/html/supervisor.d/*.ini 1> /dev/null 2>&1; then
+  cp /var/www/html/supervisor.d/*.ini /etc/supervisor.d
 fi
-if [ -d "/var/www/html/supervisor.d" ];then
+
+if [ -d "/var/www/html/supervisor.d" ]; then
     chmod 777 -R /var/www/html/bootstrap/cache
 fi
 
@@ -92,8 +98,8 @@ fi
 echo -e "\033[42;37m Check /var/www/html/supervisor.d/${DOCKER_ENV}*.ini \033[0m"
 
 # 检查 /var/www/html/supervisor.d/${DOCKER_ENV}*.ini 文件是否存在
-if ls /var/www/html/supervisor.d/${DOCKER_ENV}*.ini 1> /dev/null 2>&1; then
-    cp /var/www/html/supervisor.d/${DOCKER_ENV}*.ini /etc/supervisor.d
+if ls /var/www/html/supervisor.d/${DOCKER_ENV}/*.ini 1> /dev/null 2>&1; then
+    cp /var/www/html/supervisor.d/${DOCKER_ENV}/*.ini /etc/supervisor.d
     echo -e "\033[42;37m copy /var/www/html/supervisor.d/${DOCKER_ENV}*.ini To /etc/supervisor.d \033[0m"
 fi
 
@@ -101,27 +107,20 @@ fi
 
 echo -e "\033[42;37m Check /var/www/html/composer.${DOCKER_ENV}.json \033[0m"
 
-if [ -f "/var/www/html/composer.${DOCKER_ENV}.json" ];then
-  cat /var/www/html/composer.${DOCKER_ENV}.json > /var/www/html/composer.json
+if [ -f "/var/www/html/composer.${DOCKER_ENV}.json" ]; then
+    cat /var/www/html/composer.${DOCKER_ENV}.json > /var/www/html/composer.json
 fi
 
-if [ ! -d "/var/www/html/vendor" ];then
-    if [ -f "/var/www/html/composer.json" ];then
-      echo -e "\033[42;37m composer install start \033[0m"
-#      cd /var/www/html/ && composer update --optimize-autoloader --no-dev -vvv
-      cd /var/www/html/ && composer update --optimize-autoloader -vvv
-      echo -e "\033[42;37m composer install finish \033[0m"
+if [ ! -d "/var/www/html/vendor" ]; then
+    if [ -f "/var/www/html/composer.json" ]; then
+        echo -e "\033[42;37m composer install start \033[0m"
+        cd /var/www/html/ && composer update --optimize-autoloader -vvv
+        echo -e "\033[42;37m composer install finish \033[0m"
     fi
 fi
 
-#echo -e "\033[42;37m Check /var/www/html To www-data \033[0m"
-
-#if [ -d "/var/www/html" ];then
-#  chown -R www-data:www-data  /var/www/html
-#fi
-
 # For Nginx
-if [ -f "/usr/local/etc/php-fpm.d/www.conf" ];then
+if [ -f "/usr/local/etc/php-fpm.d/www.conf" ]; then
 
     echo -e "\033[42;37m Replace php-fpm \033[0m"
     # pm.max_children：静态方式下开启的php-fpm进程数量
