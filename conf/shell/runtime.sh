@@ -84,15 +84,11 @@ fi
 if [-d /var/www/html/supervisor.d/ ];then
     cp /var/www/html/supervisor.d/*.ini /etc/supervisor.d
 fi
-if [ -d "/var/www/html/supervisor.d" ];then
-    cp /var/www/html/supervisor.d/*.ini /etc/supervisor.d
-fi
 
 # 输出提示信息
 echo -e "\033[42;37m Check /var/www/html/supervisor.d/${DOCKER_ENV}*.ini \033[0m"
 
-# 检查 /var/www/html/supervisor.d/${DOCKER_ENV}*.ini 文件是否存在
-if ls /var/www/html/supervisor.d/${DOCKER_ENV}*.ini 1> /dev/null 2>&1; then
+if [ -d "/var/www/html/supervisor.d/${DOCKER_ENV}" ];then
     cp /var/www/html/supervisor.d/${DOCKER_ENV}*.ini /etc/supervisor.d
     echo -e "\033[42;37m copy /var/www/html/supervisor.d/${DOCKER_ENV}*.ini To /etc/supervisor.d \033[0m"
 fi
