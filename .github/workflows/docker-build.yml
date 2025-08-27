@@ -2,9 +2,9 @@ name: Docker Build
 
 on:
   schedule:
-  - cron: "00 1 * * *"
+    - cron: "00 1 * * *"
   push:
-    branches: ["v2"]
+    branches: [ "v2" ]
 
 jobs:
   build:
@@ -12,8 +12,8 @@ jobs:
       fail-fast: false
       #     max-parallel: 2
       matrix:
-        version: ["8.4","8.3","8.2","8.1"]
-        edition: ["web","octane","cli"]
+        version: [ "8.5","8.4","8.3","8.2","8.1" ]
+        edition: [ "web","octane","cli" ]
     runs-on: ubuntu-latest
 
     steps:

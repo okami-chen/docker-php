@@ -1,0 +1,187 @@
+version: "3.3"
+networks:
+  default:
+    external:
+      name: docker_default
+services:
+  mongos:
+    image: bitnami/mongodb-sharded:latest
+    container_name: mongos
+    ports:
+      - 27017:27017
+    environment:
+      - MONGODB_SHARDING_MODE=mongos
+      - MONGODB_CFG_PRIMARY_HOST=mongodb-cfg-primary
+      - MONGODB_CFG_REPLICA_SET_NAME=config-replicaset
+      - MONGODB_REPLICA_SET_KEY=N548SvToJ7SRPUh4
+      - MONGODB_ROOT_PASSWORD=password123
+    depends_on:
+      - mongodb-cfg-primary
+      - mongodb-cfg-s2
+      - mongodb-cfg-s3
+      - mongodb-db0-primary
+      - mongodb-db0-s2
+      - mongodb-db0-s3
+      - mongodb-db1-primary
+      - mongodb-db1-s2
+      - mongodb-db1-s3
+      - mongodb-db2-primary
+      - mongodb-db2-s2
+      - mongodb-db2-s3
+
+  # Config servers (3 nodes)
+  mongodb-cfg-primary:
+    image: bitnami/mongodb-sharded:latest
+    container_name: mongodb-cfg-primary
+    environment:
+      - MONGODB_SHARDING_MODE=configsvr
+      - MONGODB_REPLICA_SET_MODE=primary
+      - MONGODB_REPLICA_SET_NAME=config-replicaset
+      - MONGODB_REPLICA_SET_KEY=N548SvToJ7SRPUh4
+      - MONGODB_ROOT_PASSWORD=password123
+    volumes:
+      - ./data/mongodb/cfg/s1:/bitnami
+
+  mongodb-cfg-s2:
+    image: bitnami/mongodb-sharded:latest
+    container_name: mongodb-cfg-s2
+    environment:
+      - MONGODB_SHARDING_MODE=configsvr
+      - MONGODB_REPLICA_SET_MODE=secondary
+      - MONGODB_REPLICA_SET_NAME=config-replicaset
+      - MONGODB_REPLICA_SET_KEY=N548SvToJ7SRPUh4
+      - MONGODB_ROOT_PASSWORD=password123
+    volumes:
+      - ./data/mongodb/cfg/s2:/bitnami
+
+  mongodb-cfg-s3:
+    image: bitnami/mongodb-sharded:latest
+    container_name: mongodb-cfg-s3
+    environment:
+      - MONGODB_SHARDING_MODE=configsvr
+      - MONGODB_REPLICA_SET_MODE=secondary
+      - MONGODB_REPLICA_SET_NAME=config-replicaset
+      - MONGODB_REPLICA_SET_KEY=N548SvToJ7SRPUh4
+      - MONGODB_ROOT_PASSWORD=password123
+    volumes:
+      - ./data/mongodb/cfg/s3:/bitnami
+
+  # Shard 0
+  mongodb-db0-primary:
+    image: bitnami/mongodb-sharded:latest
+    container_name: mongodb-db0-primary
+    environment:
+      - MONGODB_SHARDING_MODE=shardsvr
+      - MONGODB_REPLICA_SET_MODE=primary
+      - MONGODB_REPLICA_SET_NAME=shard0
+      - MONGODB_REPLICA_SET_KEY=N548SvToJ7SRPUh4
+      - MONGODB_MONGOS_HOST=mongos
+      - MONGODB_ROOT_PASSWORD=password123
+    volumes:
+      - ./data/mongodb/db0/primary:/bitnami
+
+  mongodb-db0-s2:
+    image: bitnami/mongodb-sharded:latest
+    container_name: mongodb-db0-s2
+    environment:
+      - MONGODB_SHARDING_MODE=shardsvr
+      - MONGODB_REPLICA_SET_MODE=secondary
+      - MONGODB_REPLICA_SET_NAME=shard0
+      - MONGODB_REPLICA_SET_KEY=N548SvToJ7SRPUh4
+      - MONGODB_MONGOS_HOST=mongos
+      - MONGODB_ROOT_PASSWORD=password123
+    volumes:
+      - ./data/mongodb/db0/s2:/bitnami
+
+  mongodb-db0-s3:
+    image: bitnami/mongodb-sharded:latest
+    container_name: mongodb-db0-s3
+    environment:
+      - MONGODB_SHARDING_MODE=shardsvr
+      - MONGODB_REPLICA_SET_MODE=secondary
+      - MONGODB_REPLICA_SET_NAME=shard0
+      - MONGODB_REPLICA_SET_KEY=N548SvToJ7SRPUh4
+      - MONGODB_MONGOS_HOST=mongos
+      - MONGODB_ROOT_PASSWORD=password123
+    volumes:
+      - ./data/mongodb/db0/s3:/bitnami
+
+  # Shard 1
+  mongodb-db1-primary:
+    image: bitnami/mongodb-sharded:latest
+    container_name: mongodb-db1-primary
+    environment:
+      - MONGODB_SHARDING_MODE=shardsvr
+      - MONGODB_REPLICA_SET_MODE=primary
+      - MONGODB_REPLICA_SET_NAME=shard1
+      - MONGODB_REPLICA_SET_KEY=N548SvToJ7SRPUh4
+      - MONGODB_MONGOS_HOST=mongos
+      - MONGODB_ROOT_PASSWORD=password123
+    volumes:
+      - ./data/mongodb/db1/primary:/bitnami
+
+  mongodb-db1-s2:
+    image: bitnami/mongodb-sharded:latest
+    container_name: mongodb-db1-s2
+    environment:
+      - MONGODB_SHARDING_MODE=shardsvr
+      - MONGODB_REPLICA_SET_MODE=secondary
+      - MONGODB_REPLICA_SET_NAME=shard1
+      - MONGODB_REPLICA_SET_KEY=N548SvToJ7SRPUh4
+      - MONGODB_MONGOS_HOST=mongos
+      - MONGODB_ROOT_PASSWORD=password123
+    volumes:
+      - ./data/mongodb/db1/s2:/bitnami
+
+  mongodb-db1-s3:
+    image: bitnami/mongodb-sharded:latest
+    container_name: mongodb-db1-s3
+    environment:
+      - MONGODB_SHARDING_MODE=shardsvr
+      - MONGODB_REPLICA_SET_MODE=secondary
+      - MONGODB_REPLICA_SET_NAME=shard1
+      - MONGODB_REPLICA_SET_KEY=N548SvToJ7SRPUh4
+      - MONGODB_MONGOS_HOST=mongos
+      - MONGODB_ROOT_PASSWORD=password123
+    volumes:
+      - ./data/mongodb/db1/s3:/bitnami
+
+  # Shard 2
+  mongodb-db2-primary:
+    image: bitnami/mongodb-sharded:latest
+    container_name: mongodb-db2-primary
+    environment:
+      - MONGODB_SHARDING_MODE=shardsvr
+      - MONGODB_REPLICA_SET_MODE=primary
+      - MONGODB_REPLICA_SET_NAME=shard2
+      - MONGODB_REPLICA_SET_KEY=N548SvToJ7SRPUh4
+      - MONGODB_MONGOS_HOST=mongos
+      - MONGODB_ROOT_PASSWORD=password123
+    volumes:
+      - ./data/mongodb/db2/primary:/bitnami
+
+  mongodb-db2-s2:
+    image: bitnami/mongodb-sharded:latest
+    container_name: mongodb-db2-s2
+    environment:
+      - MONGODB_SHARDING_MODE=shardsvr
+      - MONGODB_REPLICA_SET_MODE=secondary
+      - MONGODB_REPLICA_SET_NAME=shard2
+      - MONGODB_REPLICA_SET_KEY=N548SvToJ7SRPUh4
+      - MONGODB_MONGOS_HOST=mongos
+      - MONGODB_ROOT_PASSWORD=password123
+    volumes:
+      - ./data/mongodb/db2/s2:/bitnami
+
+  mongodb-db2-s3:
+    image: bitnami/mongodb-sharded:latest
+    container_name: mongodb-db2-s3
+    environment:
+      - MONGODB_SHARDING_MODE=shardsvr
+      - MONGODB_REPLICA_SET_MODE=secondary
+      - MONGODB_REPLICA_SET_NAME=shard2
+      - MONGODB_REPLICA_SET_KEY=N548SvToJ7SRPUh4
+      - MONGODB_MONGOS_HOST=mongos
+      - MONGODB_ROOT_PASSWORD=password123
+    volumes:
+      - ./data/mongodb/db2/s3:/bitnami

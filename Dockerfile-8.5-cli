@@ -1,0 +1,28 @@
+FROM php:8.5.0beta1-cli-alpine
+
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+COPY ./conf/cli/start.sh /opt/start.sh
+COPY ./conf/shell/runtime.sh /opt/runtime.sh
+
+ARG DOCKER_ENV=production
+ENV TIMEZONE="Asia/Shanghai" \
+    LANG=C.UTF-8 \
+    COMPOSER_ALLOW_SUPERUSER=1 \
+    OPCACHE_ENABLE=1
+
+WORKDIR /var/www/html
+
+RUN apk update && apk add -U tzdata \
+&& cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone \
+&& apk del tzdata \
+&& install-php-extensions intl ldap dba shmop calendar exif gettext pcntl sysvsem sysvshm sysvmsg soap \
+pdo_mysql mysqli bcmath sockets zip bz2 redis-6.1.0 opcache @composer amqp swoole mongodb xlswriter \
+igbinary lzf lz4 \
+&& composer config -g repo.packagist composer https://mirrors.cloud.tencent.com/composer/ \
+&& apk update && apk upgrade && apk add --no-cache bash bash-completion supervisor \
+&& rm -rf /var/cache/apk/* /tmp/* /usr/share/man /var/lib/apt/lists/* \
+&& chmod +x /opt/start.sh
+
+EXPOSE 80
+
+CMD ["/opt/start.sh"]
