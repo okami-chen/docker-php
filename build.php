@@ -1,7 +1,7 @@
 <?php
 
 $version = [
-    '7.0.33','7.1.33','7.2.34','7.3.33','7.4.33','8.0.30', '8.1.31', '8.2.27','8.3.15','8.4.2'
+    '7.0.33', '7.1.33', '7.2.34', '7.3.33', '7.4.33', '8.0.30', '8.1.31', '8.2.27', '8.3.15', '8.4.5'
 ];
 
 class Docker
@@ -91,10 +91,10 @@ class Docker
             //$this->cmds[] = 'docker rmi php:' . $this->bigVersion . '.' . $this->smallVersion .'.'.$this->lastVersion. '-fpm-alpine';
 
             $data = implode(PHP_EOL, $this->cmds);
-            if($this->isLastVersion){
+            if ($this->isLastVersion) {
                 file_put_contents(__DIR__ . '/build_' . $this->bigVersion . '.' . $this->smallVersion . '.bat', $data);
-            }else{
-                file_put_contents(__DIR__ . '/build_' . $this->bigVersion . '.' . $this->smallVersion .'.'.$this->lastVersion. '.bat', $data);
+            } else {
+                file_put_contents(__DIR__ . '/build_' . $this->bigVersion . '.' . $this->smallVersion . '.' . $this->lastVersion . '.bat', $data);
             }
             file_put_contents(__DIR__ . '/pull.bat', implode(PHP_EOL, $this->images));
             file_put_contents(__DIR__ . '/push.bat', implode(PHP_EOL, $this->push));
@@ -123,7 +123,7 @@ class Docker
 
         $pushVersion = $this->bigVersion . '.' . $this->smallVersion;
 
-        $dockerFile = 'Dockerfile-'.$pushVersion.'-'.$buildType;
+        $dockerFile = 'Dockerfile-' . $pushVersion . '-' . $buildType;
 
         if (!file_exists($dockerFile)) {
             return;
@@ -131,7 +131,7 @@ class Docker
 
         $baseImage = $this->namespace . ':' . $buildType . '-' . $fullVerion;
 
-        $this->cmds[] = 'docker build -f '.$dockerFile.' -t ' . $baseImage . ' .';
+        $this->cmds[] = 'docker build -f ' . $dockerFile . ' -t ' . $baseImage . ' .';
         $this->cmds[] = 'docker push ' . $baseImage;
         $this->push[] = 'docker push ' . $baseImage;
 
@@ -161,9 +161,9 @@ class Docker
             }
             $this->cmds[] = '';
         }
-        $this->cmds[] = 'docker rmi '.$this->namespace . ':' . $buildType . '-' . $pushVersion;
+        $this->cmds[] = 'docker rmi ' . $this->namespace . ':' . $buildType . '-' . $pushVersion;
         if ($this->isLastVersion) {
-            $this->cmds[] = 'docker rmi '.$baseImage;
+            $this->cmds[] = 'docker rmi ' . $baseImage;
         }
 
         $this->cmds[] = '';
