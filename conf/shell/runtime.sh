@@ -142,4 +142,4 @@ if [ -f "/usr/local/etc/php-fpm.d/www.conf" ]; then
 
 fi
 
-sleep 5s
+sleep 3s
