@@ -16,5 +16,5 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
 pdo_mysql mysqli bcmath sockets zip bz2 mcrypt redis opcache @composer amqp swoole mongodb \
 && composer config -g repo.packagist composer https://mirrors.cloud.tencent.com/composer/ \
 && apk update && apk upgrade && apk add --no-cache bash bash-completion supervisor \
-&& chmod + /tmp/cli.sh && /bin/bash /tmp/cli.sh \
+&& chmod +x /tmp/cli.sh && /bin/bash /tmp/cli.sh \
 && rm -rf /var/cache/apk/* /tmp/* /usr/share/man /var/lib/apt/lists/*
