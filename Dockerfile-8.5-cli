@@ -44,18 +44,18 @@ RUN set -eux; \
 
 RUN set -eux; \
     install-php-extensions \
-        redis \
-        opcache \
-        @composer
-
-RUN set -eux; \
-    install-php-extensions \
         amqp \
         mongodb \
         xlswriter \
         igbinary \
         lzf \
         lz4
+
+RUN set -eux; \
+    install-php-extensions \
+        redis \
+        opcache \
+        @composer
 
 RUN set -eux; \
     composer config -g repo.packagist composer https://mirrors.cloud.tencent.com/composer/
