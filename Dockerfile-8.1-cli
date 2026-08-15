@@ -15,9 +15,10 @@ WORKDIR /var/www/html
 RUN apk update && apk add -U tzdata \
 && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone \
 && apk del tzdata \
-&& install-php-extensions intl ldap dba shmop calendar exif gettext pcntl sysvsem sysvshm sysvmsg soap \
-pdo_mysql mysqli bcmath sockets zip bz2 redis opcache @composer amqp xlswriter \
-igbinary lzf lz4 mcrypt \
+&& install-php-extensions intl calendar exif gettext pcntl pgsql \
+pdo_mysql pdo_pgsql mysqli bcmath sockets zip bz2 brotli \
+amqp mongodb xlswriter igbinary lzf lz4 mcrypt \
+redis opcache @composer \
 && composer config -g repo.packagist composer https://mirrors.cloud.tencent.com/composer/ \
 && apk update && apk upgrade && apk add --no-cache bash bash-completion supervisor \
 && rm -rf /var/cache/apk/* /tmp/* /usr/share/man /var/lib/apt/lists/* \

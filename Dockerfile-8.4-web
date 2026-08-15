@@ -26,23 +26,19 @@ RUN set -eux; \
 RUN set -eux; \
     install-php-extensions \
         intl \
-        ldap \
-        dba \
-        shmop \
         calendar \
         exif \
         gettext \
         pcntl \
-        sysvsem \
-        sysvshm \
-        sysvmsg \
-        soap \
+        pgsql \
         pdo_mysql \
+        pdo_pgsql \
         mysqli \
         bcmath \
         sockets \
         zip \
-        bz2
+        bz2 \
+        brotli
 
 RUN set -eux; \
     install-php-extensions \
@@ -51,7 +47,8 @@ RUN set -eux; \
         xlswriter \
         igbinary \
         lzf \
-        lz4
+        lz4 \
+        mcrypt
 
 RUN set -eux; \
     install-php-extensions \
